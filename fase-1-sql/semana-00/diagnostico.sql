@@ -50,3 +50,20 @@ ORDER BY COUNT(o.order_id) DESC;
 
 
 
+SELECT order_id, freight
+FROM orders
+WHERE order_id = 10248;
+
+SELECT o.order_id, o.freight, od.product_id, od.quantity
+FROM orders o
+INNER JOIN order_details od ON od.order_id = o.order_id
+WHERE o.order_id = 10248;
+
+
+SELECT
+    COUNT(*)                  AS total_linhas,
+    COUNT(DISTINCT order_id)  AS pedidos_distintos
+FROM order_details;
+
+
+
