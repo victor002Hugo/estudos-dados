@@ -12,5 +12,9 @@ order_details: Representa os detalhes de cada item de cada pedido
 products: Representa os produtos
 categories: Categorias de produtos
 employees: Informações relacionadas aos funcionarios
-- **Travou:** Não consegui colocar o dbeaver para manter palavras reservadas em maiusculo
-- **Amanhã:** terminar o que faltou da Semana 0
+
+Aprendi sobre ligações, um pouco sobre subquery
+Descobri que posso e devo utilizar filtros no ON das ligações, para não perder os dados no where, e que para cada relatorio e pergunta existe uma forma para resolução
+
+- **Travou:** Travei nas subquery, travei no filtro no ON, no exists tambem pois esqueci de colocar no where a comparação para a filtragem da tabela externa
+- **Amanhã:** Revisão da semana com aprendizado e alguns exercicios, visando que comecei no final da semana
