@@ -27,4 +27,8 @@ Descobri que posso e devo utilizar filtros no ON das ligações, para não perde
                 e-> O resultado será verdadeiro e não irá filtrar nada, pois o where serve como criteiro para dizer se o primeiro registro existe ou não na consulta do exists. 
                  - **Correção:** sem a ligação, o EXISTS dá o mesmo resultado para todas as linhas: traz todos os registros se a subquery encontrar algo no banco, ou nenhum se não encontrar. A ligação faz a subquery ser avaliada para cada linha da consulta de fora.
 - **Travou:** Apenas alguns ajustes referentes as aulas da semana, mas sem travas
-- **Amanhã:** Iniciar com subquery nos 3 lugares, from , where e exists
+- **Amanhã:** Iniciar com subquery nos 3 lugares, from , where e exists 
+
+## 18/10/2026 — Semana 1
+- **Estudei:** Subqueries em join, where, from e etc
+- **Travou:**
