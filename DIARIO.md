@@ -32,3 +32,7 @@ Descobri que posso e devo utilizar filtros no ON das ligações, para não perde
 ## 18/10/2026 — Semana 1
 - **Estudei:** Subqueries em join, where, from e etc
 - **Travou:** Em um distinct que deveria ter colocado dentro do COUNT ao inves de colocar fora
+
+## 20/10/2026 — Semana 2
+- **Estudei:** Cte's
+- **Travou:** Em entendimento de herança de informações em Cte's encadeadas
