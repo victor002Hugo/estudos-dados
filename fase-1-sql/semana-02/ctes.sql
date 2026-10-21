@@ -27,7 +27,10 @@ GROUP BY o.ship_country
 )
 SELECT
 	o.order_id,
-	ROUND((md.media_frete)::numeric,2)AS Media_Frete
+	o.ship_country,
+	o.freight,
+	ROUND((md.media_frete)::numeric,2)AS Media_Frete,
+	ROUND((o.freight - md.media_frete)::numeric, 2)  AS diferenca
 FROM orders o 
 INNER JOIN media_frete_pais md 
 	ON md.ship_country = o.ship_country 
@@ -67,8 +70,8 @@ SELECT
 FROM classificacao cf
 GROUP BY cf.faixa
 ORDER BY receita_por_faixa DESC;
--- Considera apenas clientes com compras em 1997.
--- Clientes sem compras no ano não entram na classificação.
+-- Sanity check: receita total 1997 = 617085.20 (bateu com a soma das faixas)
+-- clientes em 1997 = 86 (bateu com a soma de qtd_clientes)
 
 
 -- Sanity Check da soma da receita
@@ -104,22 +107,22 @@ SELECT s.country FROM suppliers s ;
 WITH clientes_por_pais AS(
 SELECT
 	c.country,
-	('Cliente') AS Tipo,
-	COUNT(c.customer_id )AS Qtd_cliente
+	'Cliente' AS Tipo,
+	COUNT(c.customer_id )AS Quantidade
 FROM customers c 
-GROUP BY c.country ,tipo
+GROUP BY c.country
 ),
 fornecedores_por_pais AS(
 SELECT
 	s.country,
-	('Fornecedor')AS Tipo,
-	COUNT(s.supplier_id ) AS Qtd_fornecedores
+	'Fornecedor' AS Tipo,
+	COUNT(s.supplier_id ) AS Quantidade
 FROM suppliers s 
-GROUP BY s.country ,tipo
+GROUP BY s.country
 )
-SELECT * FROM clientes_por_pais cl
+SELECT cl.country ,cl.tipo , cl.quantidade FROM clientes_por_pais cl
 UNION ALL
-SELECT *FROM fornecedores_por_pais 
+SELECT fr.country , fr.tipo , fr.quantidade FROM fornecedores_por_pais fr
 ORDER BY country ;
 
 
@@ -148,13 +151,17 @@ GROUP BY o.employee_id
 )
 SELECT
 	e.employee_id,
-	ROUND((rc97.soma_receita)::numeric,2)AS Receita_1957 ,
-	ROUND((rc98.soma_receita)::numeric,2) AS Receita_1958,
+	e.first_name ,
+	ROUND((rc97.soma_receita)::numeric,2)AS Receita_1997 ,
+	ROUND((rc98.soma_receita)::numeric,2) AS Receita_1998,
 	ROUND(((rc98.soma_receita - rc97.soma_receita )/ NULLIF(rc97.soma_receita,0)*100)::numeric,2)AS Variacao_ano
 FROM employees e 
 LEFT JOIN receita_func_1997 rc97 
 	ON rc97.employee_id = e.employee_id 
 LEFT JOIN receita_func_1998 rc98 
-	ON rc98.employee_id = e.employee_id ;
+	ON rc98.employee_id = e.employee_id 
+ORDER BY variacao_ano DESC;
 
--- A ultima data de 1998 é 1998-05-06, sendo assim temos apenas 5 meses de compra para 1998, o ano não foi finalizado como 1997.
+-- 1998 só tem pedidos até 06/05 (pouco mais de 4 meses), contra 12 meses de 1997.
+-- Por isso, a variação calculada não mede crescimento real: quase todos aparecem com queda.
+-- Uma comparação justa usaria o mesmo período nos dois anos (jan a 06/05).
