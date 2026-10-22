@@ -36,3 +36,7 @@ Descobri que posso e devo utilizar filtros no ON das ligações, para não perde
 ## 20/10/2026 — Semana 2
 - **Estudei:** Cte's
 - **Travou:** Em entendimento de herança de informações em Cte's encadeadas
+
+## 21/10/2026 — Semana 2
+- **Estudei:** Reforço de CTE's
+- **Travou:** Esqueci de levar parametros de algumas CTE's em diante
