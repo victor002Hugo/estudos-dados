@@ -191,7 +191,6 @@ INNER JOIN Valor_do_pedido pedido
 	ON pedido.customer_id  = c.customer_id 
 INNER JOIN Media_por_cliente md 
 	ON md.customer_id = c.customer_id 
-WHERE pedido.valor  > (md.media_cliente *2)
-ORDER BY (md.media_cliente *2) - pedido.valor DESC;
+WHERE pedido.valor  > (md.media_cliente *2);
 
 
