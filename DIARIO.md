@@ -44,3 +44,7 @@ Descobri que posso e devo utilizar filtros no ON das ligações, para não perde
 ## 22/10/2026 — Semana 2
 - **Estudei:** Aprendendo Window functions
 - **Travou:** 
+
+## 23/10/2026 — Semana 2
+- **Estudei:** Aprendendo Window functions, usando RANK, ROW_NUMBER e aprendendo a utilizar SUM() OVER() para somar tudo.
+- **Travou:**  Fiz um join errado inflanto um resultado, multiplicando ele algumas centenas de vezes.
