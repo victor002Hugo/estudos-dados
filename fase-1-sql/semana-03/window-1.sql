@@ -102,3 +102,7 @@ ORDER BY percentual DESC;
 -- Eu ja sei pq vc pediu para anotar o valor... só pq deu 100.03 rsrsrs, esse valor foi por conta do arrendondamento em 2 casas, como não coloquei isso em uma CTE não consegui mudar só na visão do usuario.
 
 --Sanity Check , transformar a consulta final em uma CTE resultado, e executar SELECT SUM(r.percentual) FROM resultado r;
+
+-- Sanity check 1: soma das receitas por país = 617.085,20 (bateu com o total de 1997)
+-- Sanity check 2: soma dos percentuais = 100,03 (diferença de arredondamento;
+--                 somando o percentual sem ROUND, dá exatamente 100)
