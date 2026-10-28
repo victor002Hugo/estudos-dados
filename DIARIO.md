@@ -50,5 +50,9 @@ Descobri que posso e devo utilizar filtros no ON das ligações, para não perde
 - **Travou:**  Fiz um join errado inflanto um resultado, multiplicando ele algumas centenas de vezes.
 
 ## 24/10/2026 — Semana 3
-- **Estudei:** Aprendendo Window functions, usando RANK, ROW_NUMBER e aprendendo a utilizar SUM() OVER() para somar tudo.
-- **Travou:**  Fiz um join errado inflanto um resultado, multiplicando ele algumas centenas de vezes.
+- **Estudei:** Aprendendo a utilizar o DATE_TRUNC e o LAG
+- **Travou:**  Filtrei na CTE ao inves de filtrar na coluna final
+
+## 27/10/2026 — Semana 3
+- **Estudei:** Refiz alguns exercicios de window function
+- **Travou:**  Na media movel, no que passar no lag e no order by do mês
