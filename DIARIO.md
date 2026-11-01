@@ -56,3 +56,11 @@ Descobri que posso e devo utilizar filtros no ON das ligações, para não perde
 ## 27/10/2026 — Semana 3
 - **Estudei:** Refiz alguns exercicios de window function
 - **Travou:**  Na media movel, no que passar no lag e no order by do mês
+
+## 28/10/2026 — Semana 3
+- **Estudei:** Fiz uma curva ABC
+- **Travou:**  No percentual acumulado e no medo de criar varias cte's
+
+## 01/11/2026 — Semana 4
+- **Estudei:** Aprendendo sobre funções de data
+- **Travou:**  Nas nomenclaturas e o que cada função executa
