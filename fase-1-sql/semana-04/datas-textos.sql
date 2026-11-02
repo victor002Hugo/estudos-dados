@@ -102,8 +102,8 @@ FROM orders o
 SELECT
 	pd.*,
 	CASE
-		WHEN pd.dias_adiantado >=0 THEN 'No Prazo'
 		WHEN pd.shipped_date IS NULL THEN 'Não Enviado'
+		WHEN pd.dias_adiantado >=0 THEN 'No Prazo'
 	ELSE 'Atrasado'
 	END AS Status_Pedido
 FROM pedidos_datas pd
@@ -138,3 +138,85 @@ SELECT
 FROM employees e ;
 
 
+4. Gerar e-mails. Para cada cliente, gere um e-mail fictício para o contato (contact_name) no formato primeironome.ultimonome@nomedaempresa.com, tudo em minúsculas, sem espaços e sem pontuação no nome da empresa.
+
+
+WITH nomes_tratados AS (
+SELECT
+	c.customer_id ,
+	c.contact_name ,
+	UNACCENT(SPLIT_PART(c.contact_name ,' ',1)) AS Primeiro_nome,
+	UNACCENT(SPLIT_PART(c.contact_name ,' ',-1)) AS Ultimo_nome,
+	UNACCENT((c.company_name))AS Nome_empresa
+	FROM customers c 
+),sem_caracteres_especiais AS(
+SELECT
+	nm.customer_id ,
+	nm.contact_name ,
+	(REGEXP_REPLACE(nm.primeiro_nome,'[^a-zA-Z0-9]', '', 'g')) AS Primeiro_nome,
+	(REGEXP_REPLACE(nm.ultimo_nome ,'[^a-zA-Z0-9]', '', 'g')) AS Ultimo_nome,
+	(REGEXP_REPLACE(nm.nome_empresa,'[^a-zA-Z0-9]', '', 'g')) AS Nome_empresa
+FROM nomes_tratados  nm
+)
+SELECT
+	sp.customer_id ,
+	sp.contact_name ,
+	LOWER(sp.primeiro_nome ||'.'||sp.ultimo_nome ||'@'||sp.nome_empresa ||'.com')AS email
+FROM sem_caracteres_especiais sp;
+
+--Na verdade todos ficaram no padrão, a unica coisa estranha é que alguns nomes de empresas são muito grandes
+
+5. Limpeza de telefones.
+
+Parte A: para cada cliente, mostre o país, o telefone original, o telefone só com dígitos e a quantidade de dígitos.
+Parte B: mostre quantos clientes há para cada quantidade de dígitos.
+
+Num comentário: o que isso revela sobre a padronização dos dados? Pense no que seria necessário para usar esses telefones numa integração, por exemplo, para enviar mensagens por WhatsApp.
+
+
+
+Parte A: para cada cliente, mostre o país, o telefone original, o telefone só com dígitos e a quantidade de dígitos.
+
+
+WITH telefones_tratados_por_pais AS (
+SELECT
+	c.customer_id ,
+	c.country ,
+	c.phone ,
+	REGEXP_REPLACE(c.phone ,'[^0-9]', '', 'g') AS Numero_tratado,
+	LENGTH(REGEXP_REPLACE(c.phone ,'[^0-9]', '', 'g'))AS Qtd_numeros
+FROM customers c 
+)
+SELECT
+	tl.customer_id ,
+	tl.country ,
+	tl.phone ,
+	tl.numero_tratado ,
+	tl.qtd_numeros 
+FROM telefones_tratados_por_pais tl;
+
+
+
+
+
+
+Parte B: mostre quantos clientes há para cada quantidade de dígitos.
+
+
+WITH telefones_tratados_por_pais AS (
+SELECT
+	c.country ,
+	c.phone ,
+	REGEXP_REPLACE(c.phone ,'[^0-9]', '', 'g') AS Numero_tratado,
+	LENGTH(REGEXP_REPLACE(c.phone ,'[^0-9]', '', 'g'))AS Qtd_numeros
+FROM customers c 
+)
+SELECT
+	tl.qtd_numeros ,
+	COUNT(*)AS Qtd_clientes
+FROM telefones_tratados_por_pais tl
+GROUP BY tl.qtd_numeros 
+ORDER BY tl.qtd_numeros  DESC;
+
+--Revela o grau de importancia para a padronização dos dados, a base "crua" tem dados totalmente despadronizados, tornando praticamente impossivel sua utilização em uma integração que precisa de dados formatados em um formato adequado.
+--Isso revela como a camada bronze pode não estar preparada para consumo interno ou até mesmo em uma IA.
