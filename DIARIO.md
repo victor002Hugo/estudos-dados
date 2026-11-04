@@ -68,3 +68,7 @@ Descobri que posso e devo utilizar filtros no ON das ligações, para não perde
 ## 02/11/2026 — Semana 4
 - **Estudei:** Funções para tratamento de base e expressões regulares, tratando e-mails, telefones, padronizando em um formato coerente para uso.
 - **Travou:**  Na regex que remove os caracteres com acento ao inves de só remover o assento.
+
+## 03/11/2026 — Semana 4
+- **Estudei:** Limpeza de base, dados nulos e não configurados, só de carregar os dados se percebe uma não padronização e desorganização
+- **Travou:**  Em algumas funções que não lembrava
