@@ -72,3 +72,7 @@ Descobri que posso e devo utilizar filtros no ON das ligações, para não perde
 ## 03/11/2026 — Semana 4
 - **Estudei:** Limpeza de base, dados nulos e não configurados, só de carregar os dados se percebe uma não padronização e desorganização
 - **Travou:**  Em algumas funções que não lembrava
+
+## 04/11/2026 — Semana 4
+- **Estudei:** Limpeza de tabelas, padronização de dados e criação de camada silver
+- **Travou:**  No momento de juntar todas as CTE's
